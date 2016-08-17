@@ -33,6 +33,10 @@ function NotesApplication(Author){
 			return "Congratulations "+this.Author+"! Your Text number "+gLine+" Has been added";
 		}
 	}
+	/*
+	*List note now supported, you can now view all your notes at once
+	*@param is null for a valid session
+	*/
 	this.listNotes = function listNotes(){
 		var allNotesLength = this.Text.length;
 		if(allNotesLength < 1){
@@ -46,6 +50,19 @@ function NotesApplication(Author){
 				start++;
 			}
 			return noteText;
+		}
+	}
+	/*
+	*Now you can make a precise search using the Note ID
+	*@param note_id is the note ID
+	*/
+	this._get = function _get(note_id){
+		if(parseInt(note_id) && note_id > 0){
+			var noteText = " \n Note ID: "+note_id+" \n "+this.Text[note_id+1]+" By Author \nl "+this.Author;
+			return noteText;
+		}
+		else{
+			return "The NoteId might be incorrect";
 		}
 	}
 }
