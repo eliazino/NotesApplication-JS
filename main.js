@@ -8,19 +8,44 @@ function NotesApplication(Author){
   */
 	this.Author = Author;
 	this.Text = [];
-	this.Title = [];
+	this.Counter = 0;
 	/*
 	* And this Creates the notes
 	*/
-	this.CreateText = function CreateText(text,title){
-		if(text === '' || title === '' || arguments.length < 2){
+	this.CreateText = function create(note_content){
+		if(note_content === '' || arguments.length < 1){
 			return "Something went wrong with your request"
 		}
 		else{
-			this.Text.push = text;
-			this.Title.push = title;
-			var gLine = this.Text.length + 1;
-			return "Congratulations! Your Text number "+gLine+" Has been added. Now view your text";
+			if(note_content.constructor === Array){
+				start = 0;
+				while (start < note_content.length){
+					this.Text[this.Counter] = note_content[start];
+					start++
+					this.Counter++;
+				}
+			}
+			else{
+				this.Text[this.Counter] = note_content;
+				var gLine = this.Text.length + 1;
+				this.Counter++
+			}
+			return "Congratulations "+this.Author+"! Your Text number "+gLine+" Has been added";
+		}
+	}
+	this.listNotes = function listNotes(){
+		var allNotesLength = this.Text.length;
+		if(allNotesLength < 1){
+			return "Yey!! No note has been created, Create One please";
+		}
+		else{
+			var start = 0;
+			var noteText = "";
+			while (start < allNotesLength){
+				noteText = noteText +" \nl Note ID: "+parseInt(start+1)+" \nl "+this.Text[start]+" By Author \nl "+this.Author;
+				start++;
+			}
+			return noteText;
 		}
 	}
 }
