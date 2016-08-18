@@ -21,7 +21,7 @@ class NotesApplication{
 		}
 		else{
 			if(note_content.constructor === Array){
-				start = 0;
+				let start = 0;
 				while (start < note_content.length){
 					this.Text[this.Counter] = note_content[start];
 					start++
@@ -30,10 +30,10 @@ class NotesApplication{
 			}
 			else{
 				this.Text[this.Counter] = note_content;
-				var gLine = this.Text.length + 1;
+				let gLine = this.Text.length + 1;
 				this.Counter++
 			}
-			return "Congratulations "+this.Author+"! Your Text number "+gLine+" Has been added";
+			return "Congratulations "+this.Author+"! Your Text number "+this.gLine+" Has been added";
 		}
 	}
 	/*
@@ -41,15 +41,19 @@ class NotesApplication{
 	*@param is null for a valid session
 	*/
 	listNotes(){
-		var allNotesLength = this.Text.length;
+		let allNotesLength = this.Text.length;
 		if(allNotesLength < 1){
 			return "Yey!! No note has been created, Create One please";
 		}
 		else{
-			var start = 0;
-			var noteText = "";
+			let start = 0;
+			let noteText = "";
 			while (start < allNotesLength){
-				noteText = noteText +" \nl Note ID: "+parseInt(start+1)+" \nl "+this.Text[start]+" By Author \nl "+this.Author;
+				let x = start + 1;
+				noteText = `${noteText} 
+				Note ID: ${x}
+				${this.Text[start]}
+				By Author  ${this.Author}`;
 				start++;
 			}
 			return noteText;
@@ -61,7 +65,10 @@ class NotesApplication{
 	*/
 	_get(note_id){
 		if(parseInt(note_id) && note_id > 0){
-			var noteText = " \n Note ID: "+note_id+" \n "+this.Text[note_id+1]+" By Author \nl "+this.Author;
+			let noteText = `
+			Note ID: ${note_id}
+			${this.Text[note_id+1]} 
+			By Author ${this.Author}`;
 			return noteText;
 		}
 		else{
@@ -74,13 +81,16 @@ class NotesApplication{
 	*/
 	_search(search_text){
 		if(search_text.length > 0){
-			start = 0;
-			searchResult = "Showing search result for ["+search_text+"]";
+			let start = 0;
+			let searchResult = "Showing search result for ["+search_text+"]";
 			while (start < this.Counter){
-				note = this.Text[start];
-				splitNote = note.split(search_text);
+				let note = this.Text[start];
+				let splitNote = note.split(search_text);
 				if(splitNote.length > 1){
-					searchResult = searchResult +" \nl Note ID: "+parseInt(start+1)+" \nl "+this.Text[start]+" By Author \nl "+this.Author;
+					searchResult = `${searchResult}
+					Note ID: ${parseInt(start+1)}
+					${this.Text[start]} 
+					By Author ${this.Author}`;
 					start++;
 				}
 				else{
@@ -100,9 +110,9 @@ class NotesApplication{
 	*/
 	_delete(note_id){
 		if(parseInt(note_id) && note_id > 0){
-			newList = [];
-			start = 0;
-			counts = 0;
+			let newList = [];
+			let start = 0;
+			let counts = 0;
 			while (start < this.Counter){
 				if(start === note_id-1){
 				}
